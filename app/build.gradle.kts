@@ -28,12 +28,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true   // required by libsignal-android
     }
     kotlinOptions { jvmTarget = "17" }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.3")
     // Audited crypto only — never hand-rolled primitives.
     implementation("org.signal:libsignal-android:0.64.1")       // X3DH/PQXDH + Double Ratchet (AGPL-3.0)
     implementation("com.google.crypto.tink:tink-android:1.15.0") // HKDF / AEAD helpers
